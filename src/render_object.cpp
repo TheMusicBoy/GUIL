@@ -57,6 +57,10 @@ ObjectBase::ObjectBase(Position position, Container* container, void* object)
 
 ObjectBase::~ObjectBase() { detach(); }
 
+void* ObjectBase::get() {
+    return object_;
+}
+
 std::list<ObjectBase*>::iterator ObjectBase::attach(Container* container) {
     detach();
     container_       = container;

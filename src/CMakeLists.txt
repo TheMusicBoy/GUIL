@@ -4,10 +4,13 @@ set(SRCROOT ${PROJECT_SOURCE_DIR}/src)
 set(SRC
     ${INCROOT}/render_object.hpp
     ${SRCROOT}/render_object.cpp
+    ${INCROOT}/render.hpp
+    ${SRCROOT}/render.cpp
 )
 
 add_library(gui-lib ${SRC})
 set_target_properties(gui-lib PROPERTIES LINKER_LANGUAGE CXX)
+target_include_directories(gui-lib PUBLIC ${PROJECT_SOURCE_DIR}/include/)
 target_link_libraries(gui-lib PUBLIC
     tmbel 
     sfml-graphics 
