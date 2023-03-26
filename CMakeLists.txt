@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.15)
 project(Project)
 
+option(CMAKE_BUILD_TYPE "" Debug)
+
 set(CMAKE_CXX_STANDARD 17)
 
 # Thread configs
@@ -21,9 +23,9 @@ if (BUILD_TESTS)
     add_subdirectory(tests)
 endif()
 
-option(BUILD_EXAMPLE "" OFF)
+option(BUILD_EXAMPLES "" OFF)
 
-if (BUILD_EXAMPLE)
+if (BUILD_EXAMPLES)
     message("Building example...")
     add_subdirectory(example)
 endif()

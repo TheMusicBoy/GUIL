@@ -48,6 +48,7 @@ class RenderWin : public sf::RenderWindow {
     RenderWin(sf::VideoMode video_mode, const std::wstring& title,
               uint32_t style,
               const sf::ContextSettings& context = sf::ContextSettings());
+    ~RenderWin();
 
     void open(sf::VideoMode video_mode, const std::wstring& title,
               uint32_t style,

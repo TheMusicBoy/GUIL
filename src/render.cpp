@@ -44,6 +44,11 @@ RenderWin::RenderWin(sf::VideoMode video_mode, const std::wstring& title,
     running_ = true;
 }
 
+RenderWin::~RenderWin() {
+    if (this->isOpen())
+        this->Base::close();
+}
+
 void RenderWin::open(
     sf::VideoMode video_mode, const std::wstring& title, uint32_t style,
     const sf::ContextSettings& context) {
@@ -66,7 +71,6 @@ void RenderWin::call() {
 void RenderWin::process() { 
     while (running_)
         this->call();
-    this->Base::close();
 }
 
 }  // namespace guil
