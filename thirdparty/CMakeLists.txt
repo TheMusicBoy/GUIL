@@ -13,7 +13,7 @@ FetchContent_GetProperties(sfml)
 if(NOT sfml_POPULATED)
     message("SFML populating...")
 
-    FetchContent_Populate(sfml)
+    FetchContent_Populate(sfml) 
     add_subdirectory(${sfml_SOURCE_DIR} ${sfml_BINARY_DIR})
 endif()
 
