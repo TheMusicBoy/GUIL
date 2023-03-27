@@ -52,7 +52,7 @@ class ObjectBase {
     ObjectBase(void* object_);
     ObjectBase(Container* container, void* object_);
     ObjectBase(Position position, Container* container, void* object);
-    ~ObjectBase();
+    virtual ~ObjectBase();
 
     void* get();
 

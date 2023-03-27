@@ -16,31 +16,31 @@ class Render {
     using Position  = std::list<ObjectBase*>::iterator;
     using Target    = sf::RenderTarget;
 
-    Container resource_;
+    mutable Container resource_;
     Target* target_;
 
  public:
     Render();
     Render(Target* target);
+    virtual ~Render() = default;
 
-    inline void setTarget(Target* target);
+    void setTarget(Target* target);
 
-    inline Position attach(ObjectBase* object);
-    inline Position attach(Position position, ObjectBase* object);
+    Position attach(ObjectBase* object);
+    Position attach(Position position, ObjectBase* object);
 
     inline void detach(Position position);
 
-    void draw();
+    void draw() const;
 };
 
-class RenderWin : public sf::RenderWindow {
+class RenderWin : public sf::RenderWindow, public Render {
  protected:
     using Self       = RenderWin;
     using Base       = sf::RenderWindow;
     using EventQueue = ec::EventQueue<sf::Event>;
 
     EventQueue event_queue_;
-    Render render_;
     bool running_;
 
  public:

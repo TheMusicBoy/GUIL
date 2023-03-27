@@ -23,7 +23,7 @@ std::list<ObjectBase*>::iterator Render::attach(Position position,
 
 void Render::detach(Position position) { resource_.detach(position); }
 
-void Render::draw() {
+void Render::draw() const {
     if (target_ != nullptr) {
         target_->clear();
         target_->draw(resource_);
@@ -34,13 +34,13 @@ void Render::draw() {
 // RenderWin implementation
 ////////////////////////////////////////////////////////////
 
-RenderWin::RenderWin() : render_(this), running_(false) {}
+RenderWin::RenderWin() : running_(false) { this->setTarget(this); }
 
 RenderWin::RenderWin(sf::VideoMode video_mode, const std::wstring& title,
                      uint32_t style,
                      const sf::ContextSettings& context)
     : Base(video_mode, title, style, context) {
-    render_.setTarget(this);
+    this->setTarget(this);
     running_ = true;
 }
 
@@ -65,7 +65,8 @@ ec::EventQueue<sf::Event>* RenderWin::getEvents() { return &event_queue_; }
 void RenderWin::call() {
     sf::Event event;
     while (this->pollEvent(event)) event_queue_.push(event);
-    render_.draw();
+    this->Render::draw();
+    this->Base::display();
 }
 
 void RenderWin::process() { 
