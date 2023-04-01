@@ -1,6 +1,7 @@
 #ifndef _GUIL_HANDLERS_GLOBAL_HPP_
 #define _GUIL_HANDLERS_GLOBAL_HPP_
 
+#include <SFML/Window/Event.hpp>
 #include <TMBEL/global_container.hpp>
 #include <TMBEL/utils.hpp>
 
@@ -20,7 +21,7 @@ enum {
 }
 }  // namespace Handlers
 
-class GlobalHandlers : public ec::GlobalMasBase,
+class GlobalHandlers : public ec::GlobalMasBase<sf::Event>,
                        public ec::Singleton<GlobalHandlers> {
  protected:
     friend ec::Singleton<GlobalHandlers>;

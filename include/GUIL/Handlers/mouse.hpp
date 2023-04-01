@@ -1,8 +1,9 @@
 #ifndef _GUIL_HANDLERS_MOUSE_HPP_
 #define _GUIL_HANDLERS_MOUSE_HPP_
 
+#include <SFML/Window/Event.hpp>
 #include <TMBEL/global_container.hpp>
-#include <TMBEL/utils.hpp>
+#include <TMBEL/singleton.hpp>
 
 namespace guil {
 
@@ -35,17 +36,25 @@ enum {
 ////////////////////////////////////////////////////////////
 /// \brief Class that contains main mouse handler lists
 ////////////////////////////////////////////////////////////
-class MouseHandlers : public ec::GlobalMasBase,
+class MouseHandlers : public ec::GlobalMasBase<sf::Event>,
                       public ec::Singleton<MouseHandlers> {
- private:
+ protected:
+    using Self = MouseHandlers;
+    using Base = ec::GlobalMasBase<sf::Event>;
+
+    MouseHandlers() { setCount(Handlers::Mouse::Count); 
+        ec::GlobalMasBase<sf::Event>* a = static_cast<ec::GlobalMasBase<sf::Event>*>(this);
+    }
+
     friend ec::Singleton<MouseHandlers>;
-    MouseHandlers() { setCount(Handlers::Mouse::Count); }
+ public:
+    
 };
 
 ////////////////////////////////////////////////////////////
 /// \brief Class that contains button handler lists
 ////////////////////////////////////////////////////////////
-class ButtonHandlers : public ec::GlobalMasBase,
+class ButtonHandlers : public ec::GlobalMasBase<sf::Event>,
                        public ec::Singleton<ButtonHandlers> {
  private:
     friend ec::Singleton<ButtonHandlers>;
@@ -55,7 +64,7 @@ class ButtonHandlers : public ec::GlobalMasBase,
 ////////////////////////////////////////////////////////////
 /// \brief Class that contains movement handler lists
 ////////////////////////////////////////////////////////////
-class MouseMoveHandlers : public ec::GlobalMasBase,
+class MouseMoveHandlers : public ec::GlobalMasBase<sf::Event>,
                           public ec::Singleton<MouseMoveHandlers> {
  private:
     friend ec::Singleton<MouseMoveHandlers>;

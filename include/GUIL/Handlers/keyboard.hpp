@@ -2,6 +2,8 @@
 #define _GUIL_HANDLERS_KEYBOARD_HPP_
 
 #include <SFML/Window/Keyboard.hpp>
+#include <SFML/Window/Event.hpp>
+#include <TMBEL/global_container.hpp>
 
 namespace guil {
 
@@ -23,7 +25,7 @@ enum { None = 0, Pressed = 1 << 7, Released = 1 << 8 };
 ////////////////////////////////////////////////////////////
 /// \brief Class that contains main keyboard handlers
 ////////////////////////////////////////////////////////////
-class KeyboardHandlers : public ec::GlobalMasBase,
+class KeyboardHandlers : public ec::GlobalMasBase<sf::Event>,
                          public ec::Singleton<KeyboardHandlers> {
  protected:
     friend ec::Singleton<KeyboardHandlers>;
@@ -33,7 +35,7 @@ class KeyboardHandlers : public ec::GlobalMasBase,
 ////////////////////////////////////////////////////////////
 /// \brief Class that contains key handlers
 ////////////////////////////////////////////////////////////
-class KeyHandlers : public ec::GlobalMasBase,
+class KeyHandlers : public ec::GlobalMasBase<sf::Event>,
                     public ec::Singleton<KeyHandlers> {
  protected:
     friend ec::Singleton<KeyHandlers>;

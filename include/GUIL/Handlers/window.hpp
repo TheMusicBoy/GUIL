@@ -22,7 +22,7 @@ enum {
 ////////////////////////////////////////////////////////////
 /// \brief Class that contains handlers of window events
 ////////////////////////////////////////////////////////////
-class WindowHandlers : public ec::GlobalMasBase,
+class WindowHandlers : public ec::GlobalMasBase<sf::Event>,
                        public ec::Singleton<WindowHandlers> {
  protected:
     friend ec::Singleton<WindowHandlers>;
@@ -43,7 +43,7 @@ enum {
 ////////////////////////////////////////////////////////////
 /// \brief Class that contains handlers of focus events
 ////////////////////////////////////////////////////////////
-class FocusHandlers : public ec::GlobalMasBase,
+class FocusHandlers : public ec::GlobalMasBase<sf::Event>,
                        public ec::Singleton<FocusHandlers> {
  protected:
     friend ec::Singleton<FocusHandlers>;
