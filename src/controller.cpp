@@ -10,7 +10,7 @@ namespace guil {
 ////////////////////////////////////////////////////////////
 
 Controller::Controller() : render_instance_(nullptr), running_(false) {
-    (*handlers_.push(new MainParser()))->attach(&handler_list_);
+    handlers_.push(*handler_list_.attach(new MainParser()));
     GlobalHandlers::getInstance()->push(Handlers::Global::Main, &handler_list_);
 }
 

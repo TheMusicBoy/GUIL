@@ -8,7 +8,7 @@ namespace guil {
 ////////////////////////////////////////////////////////////
 
 WindowParser::WindowParser() : ParserBase(Handlers::Window::Count) {
-    (*handlers_.push(new FocusParser()))->attach(&resource_[Handlers::Window::Focus]);
+    handlers_.push(*resource_[Handlers::Window::Focus].attach(new FocusParser()));
 
     auto handlers = WindowHandlers::getInstance();
     handlers->push(Handlers::Window::Closed, &resource_[Handlers::Window::Closed]);
@@ -18,11 +18,14 @@ WindowParser::WindowParser() : ParserBase(Handlers::Window::Count) {
 
 void WindowParser::call(const sf::Event& event) {
     if (event.type == sf::Event::Closed)
-        resource_[Handlers::Window::Closed].call(event);
+        resource_[Handlers::Window::Closed].map(
+            [&event](ec::Handler<sf::Event>* el) { el->call(event); });
     else if (event.type == sf::Event::Resized)
-        resource_[Handlers::Window::Resized].call(event);
+        resource_[Handlers::Window::Resized].map(
+            [&event](ec::Handler<sf::Event>* el) { el->call(event); });
     else
-        resource_[Handlers::Window::Focus].call(event);
+        resource_[Handlers::Window::Focus].map(
+            [&event](ec::Handler<sf::Event>* el) { el->call(event); });
 }
 
 ////////////////////////////////////////////////////////////
@@ -37,9 +40,11 @@ FocusParser::FocusParser() : ParserBase(Handlers::Focus::Count) {
 
 void FocusParser::call(const sf::Event& event) {
     if (event.type == sf::Event::LostFocus)
-        resource_[Handlers::Focus::LostFocus].call(event);
+        resource_[Handlers::Focus::LostFocus].map(
+            [&event](ec::Handler<sf::Event>* el) { el->call(event); });
     else
-        resource_[Handlers::Focus::GainedFocus].call(event);
+        resource_[Handlers::Focus::GainedFocus].map(
+            [&event](ec::Handler<sf::Event>* el) { el->call(event); });
 }
 
 }  // namespace guil
